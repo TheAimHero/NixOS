@@ -47,7 +47,7 @@ in
             src = pkgs.fetchFromGitHub {
               owner = "nvimtools";
               repo = "none-ls-extras.nvim";
-              rev = "70659cc";
+              rev = "03955d1";
               sha256 = "Mm3BJI4wZ+Bzip2/A4l71MsGnGuITKTNDAMrxV8LleE=";
             };
             doCheck = false;
@@ -97,10 +97,6 @@ in
       {
         plugin = focus-nvim;
         config = withLuaFile ./config/plugins/focus.lua;
-      }
-      {
-        plugin = markview-nvim;
-        config = withLuaFile ./config/plugins/markview.lua;
       }
       {
         plugin = catppuccin-nvim;

@@ -1,11 +1,10 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
     ./app/zsh
     ./app/tmux
     ./app/lf
-    ./app/rofi
     ./app/neovim
     ./app/fzf.nix
     ./app/git.nix
