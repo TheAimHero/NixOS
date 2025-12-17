@@ -10,12 +10,6 @@ let
     rm = "rm -i";
     # Diffrent neovim configs;
     vi = "nvim --noplugins --cmd 'colorscheme habamax'";
-    #lsd remaps;
-    l = "ls -l --color=auto";
-    la = "ls -a --color=auto";
-    lla = "ls -la --color=auto";
-    lt = "ls --tree";
-    ls = "lsd";
     # quality remaps;
     cd = "z";
     xx = "exit";
@@ -41,14 +35,29 @@ in
           };
         }
       ];
-      initContent = builtins.concatStringsSep "\n" [ myKeybinds myConf ];
+      initContent = builtins.concatStringsSep "\n" [
+        myKeybinds
+        myConf
+      ];
       syntaxHighlighting.enable = true;
       enableCompletion = true;
       autosuggestion.enable = true;
       oh-my-zsh = {
         enable = true;
         theme = "robbyrussell";
-        plugins = [ "tmux" "git" "vi-mode" "fzf" "kind" "aws" "docker" "gh" "golang" "kubectl" "aws" ];
+        plugins = [
+          "tmux"
+          "git"
+          "vi-mode"
+          "fzf"
+          "kind"
+          "aws"
+          "docker"
+          "gh"
+          "golang"
+          "kubectl"
+          "aws"
+        ];
       };
     };
   };

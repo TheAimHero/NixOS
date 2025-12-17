@@ -17,9 +17,6 @@
     homeDirectory = "/home/vedant";
     packages = with pkgs; [
       pnpm
-      lsd
-      bat
-      btop
       neofetch
       kitty
     ];

@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ ... }:
+{
   programs.git = {
     enable = true;
     ignores = [ "Session.vim" ];

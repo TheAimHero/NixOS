@@ -14,8 +14,14 @@
         selection-notification = "false";
       };
     };
+    btop.enable = true;
+    bat.enable = true;
+    lsd.enable = true;
   };
   services = {
-    syncthing = { enable = true; tray.enable = true; };
+    syncthing = {
+      enable = true;
+      tray.enable = true;
+    };
   };
 }
