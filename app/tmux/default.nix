@@ -1,16 +1,15 @@
 { pkgs, ... }:
 let
-  tmux-nvim = pkgs.tmuxPlugins.mkTmuxPlugin
-    {
-      pluginName = "tmux.nvim";
-      version = "da618e0";
-      src = pkgs.fetchFromGitHub {
-        owner = "aserowy";
-        repo = "tmux.nvim";
-        rev = "da618e0";
-        sha256 = "Ie/aW08JgvuwDAEXWa+OQpouBGRUci2wa1ih54BuSwI=";
-      };
+  tmux-nvim = pkgs.tmuxPlugins.mkTmuxPlugin {
+    pluginName = "tmux.nvim";
+    version = "da618e0";
+    src = pkgs.fetchFromGitHub {
+      owner = "aserowy";
+      repo = "tmux.nvim";
+      rev = "da618e0";
+      sha256 = "Ie/aW08JgvuwDAEXWa+OQpouBGRUci2wa1ih54BuSwI=";
     };
+  };
 in
 {
   programs.tmux = {
@@ -22,30 +21,37 @@ in
     escapeTime = 1;
     keyMode = "vi";
     mouse = true;
-    plugins = with pkgs;[
+    plugins = with pkgs; [
       {
         plugin = tmuxPlugins.catppuccin;
         extraConfig = ''
+          set -g mouse on
+          set -g default-terminal "tmux-256color"
+          set -g @catppuccin_flavor "mocha"
           set -g @catppuccin_window_status_enable "yes"
-          set -g @catppuccin_pane_border_style "fg=blue" 
+          set -g @catppuccin_window_status_style "rounded"
           set -g @catppuccin_window_status_icon_enable "yes"
-          set -g @catppuccin_window_left_separator ""
-          set -g @catppuccin_window_right_separator " "
+          set -g @catppuccin_window_left_separator  ""
+          set -g @catppuccin_window_right_separator " "
           set -g @catppuccin_window_middle_separator " █"
           set -g @catppuccin_window_number_position "right"
           set -g @catppuccin_window_default_fill "number"
           set -g @catppuccin_window_default_text "#W"
           set -g @catppuccin_window_current_fill "number"
           set -g @catppuccin_window_current_text "#W"
-          set -g @catppuccin_status_left_separator  " "
+          set -g @catppuccin_pane_border_style "fg=blue"
+          set -g status-left-length 100
+          set -g status-right-length 100
+          set -g @catppuccin_status_left_separator  ""
           set -g @catppuccin_status_right_separator ""
           set -g @catppuccin_status_right_separator_inverse "no"
           set -g @catppuccin_status_fill "icon"
           set -g @catppuccin_status_background "default"
-          set -g @catppuccin_status_modules_right "directory session"
-          set -g @catppuccin_status_modules_left ""
           set -g @catppuccin_status_connect_separator "no"
+          set -g @catppuccin_status_modules_left ""
+          set -g @catppuccin_status_modules_right "directory session"
           set -g @catppuccin_directory_text "#{pane_current_path}"
+          run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux
         '';
       }
       tmuxPlugins.resurrect

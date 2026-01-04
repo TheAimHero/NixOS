@@ -17,7 +17,7 @@ let
       })
       vim.lsp.enable( "${name}" )
     '';
-  tsserverCfg = withLuaFile ./config/nvim-lspconfig/setting/tsserver.lua;
+  # tsserverCfg = withLuaFile ./config/nvim-lspconfig/setting/tsserver.lua;
   eslintCfg = withLuaFile ./config/nvim-lspconfig/setting/eslint.lua;
   goplsCfg = withLuaFile ./config/nvim-lspconfig/setting/gopls.lua;
   jsonlsCfg = withLuaFile ./config/nvim-lspconfig/setting/jsonls.lua;
@@ -178,7 +178,6 @@ in
         plugin = nvim-lspconfig;
         config = builtins.concatStringsSep "\n" [
           handlers
-          tsserverCfg
           goplsCfg
           tailwindCfg
           pythonCfg
@@ -188,6 +187,8 @@ in
           clangdCfg
           htmlCfg
           luaLsCfg
+          (defaultLspConfig "tsserver")
+          (defaultLspConfig "marksman")
           (defaultLspConfig "dockerls")
           (defaultLspConfig "docker_compose_language_service")
           (defaultLspConfig "nil_ls")
@@ -202,6 +203,8 @@ in
       lua-language-server
       nodePackages.typescript-language-server
       nil
+      marksman
+      basedpyright
       prettierd
       gopls
       vscode-langservers-extracted

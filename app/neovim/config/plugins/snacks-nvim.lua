@@ -13,6 +13,7 @@ require("snacks").setup({
 	terminal = { enabled = true },
 	rename = { enabled = true },
 	git = { enabled = true },
+	scratch = { enabled = true },
 	bufdelete = { enabled = true },
 	statuscolumn = {
 		enabled = true,
@@ -24,6 +25,8 @@ keymap("n", "<leader>ur", "<cmd>lua Snacks.rename.rename_file()<cr>", { desc = "
 keymap("n", "<leader>uz", "<cmd>lua Snacks.zen()<cr>", { desc = "Zen Mode" })
 keymap("n", "<leader>c", "<cmd>lua Snacks.bufdelete()<cr>", { desc = "Delete Buffer" })
 keymap("n", "<leader>t", "<cmd>lua Snacks.terminal.open()<cr>", { desc = "Terminal" })
+keymap("n", "<leader>.", "<cmd>lua Snacks.scratch()<cr>", { desc = "Scratch Buffer" })
+keymap("n", "<leader>S", "<cmd>lua Snacks.scratch.select()<cr>", { desc = "Select Scratch Buffer" })
 
 local snacksInit = function()
 	Snacks.toggle.option("spell", { name = "Spelling" }):map("\\s")
