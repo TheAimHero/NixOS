@@ -17,7 +17,7 @@ let
       })
       vim.lsp.enable( "${name}" )
     '';
-  # tsserverCfg = withLuaFile ./config/nvim-lspconfig/setting/tsserver.lua;
+  tsserverCfg = withLuaFile ./config/nvim-lspconfig/setting/tsserver.lua;
   eslintCfg = withLuaFile ./config/nvim-lspconfig/setting/eslint.lua;
   goplsCfg = withLuaFile ./config/nvim-lspconfig/setting/gopls.lua;
   jsonlsCfg = withLuaFile ./config/nvim-lspconfig/setting/jsonls.lua;
@@ -94,6 +94,7 @@ in
       nvim-ts-context-commentstring
       vim-wakatime
       none-ls-extras
+      octo-nvim
       {
         plugin = focus-nvim;
         config = withLuaFile ./config/plugins/focus.lua;
@@ -187,7 +188,7 @@ in
           clangdCfg
           htmlCfg
           luaLsCfg
-          (defaultLspConfig "tsserver")
+          tsserverCfg
           (defaultLspConfig "marksman")
           (defaultLspConfig "dockerls")
           (defaultLspConfig "docker_compose_language_service")
