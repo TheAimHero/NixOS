@@ -4,31 +4,30 @@ vim.lsp.config("ts_ls", {
 		Handlers.lsp_keymaps(bufnr)
 	end,
 	capabilities = Handlers.capabilities,
+	init_options = {
+		hostInfo = "neovim",
+	},
 	settings = {
 		typescript = {
 			inlayHints = {
-				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayVariableTypeHints = true,
 				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-				includeInlayPropertyDeclarationTypeHints = true,
 				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
+			},
+			preferences = {
+				importModuleSpecifier = "non-relative",
 			},
 		},
 		javascript = {
 			inlayHints = {
-				includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all'
-				includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-				includeInlayVariableTypeHints = true,
-
 				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-				includeInlayPropertyDeclarationTypeHints = true,
 				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
 			},
+			preferences = {
+				importModuleSpecifier = "non-relative",
+			},
+		},
+		tsserver = {
+			maxTsServerMemory = 2048,
 		},
 	},
 })

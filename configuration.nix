@@ -119,9 +119,7 @@
     ];
   };
 
-  # Install firefox.
   programs = {
-    firefox.enable = true;
     zsh.enable = true;
     nix-ld = {
       enable = true;
@@ -154,12 +152,12 @@
       sshfs
     ];
 
-    # plasma6.excludePackages = with pkgs.plasma6Packages; [
-    #   kate
-    #   okular
-    #   gwenview
-    #   elisa
-    # ];
+    plasma6.excludePackages = with pkgs.kdePackages; [
+      kate
+      okular
+      gwenview
+      elisa
+    ];
 
     variables = {
       SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";

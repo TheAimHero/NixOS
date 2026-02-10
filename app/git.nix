@@ -2,7 +2,12 @@
 {
   programs.git = {
     enable = true;
-    ignores = [ "Session.vim" ];
+    ignores = [
+      "Session.vim"
+      ".opencode"
+      ".claude"
+      ".agents"
+    ];
     settings = {
       user = {
         name = "TheAimHero";

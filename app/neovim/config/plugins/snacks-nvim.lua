@@ -13,7 +13,7 @@ require("snacks").setup({
 	terminal = { enabled = true },
 	rename = { enabled = true },
 	git = { enabled = true },
-	scratch = { enabled = true },
+	scratch = { enabled = true, ft = "markdown" },
 	bufdelete = { enabled = true },
 	statuscolumn = {
 		enabled = true,

@@ -94,7 +94,10 @@ in
       nvim-ts-context-commentstring
       vim-wakatime
       none-ls-extras
-      octo-nvim
+      {
+        plugin = octo-nvim;
+        config = withLuaFile ./config/plugins/octo.lua;
+      }
       {
         plugin = focus-nvim;
         config = withLuaFile ./config/plugins/focus.lua;
