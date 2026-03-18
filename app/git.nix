@@ -7,6 +7,8 @@
       ".opencode"
       ".claude"
       ".agents"
+      ".planning"
+      "pdocs"
     ];
     settings = {
       user = {

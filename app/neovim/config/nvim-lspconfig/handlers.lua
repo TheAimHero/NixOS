@@ -4,6 +4,9 @@ Handlers.capabilities = vim.lsp.protocol.make_client_capabilities()
 Handlers.capabilities.textDocument.completion.completionItem.snippetSupport = true
 Handlers.capabilities = require("cmp_nvim_lsp").default_capabilities(Handlers.capabilities)
 
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" })
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "single" })
+
 Handlers.setup = function()
 	-- diagnostic signs
 	local signs = {
@@ -36,14 +39,49 @@ local keymap = vim.keymap.set
 Handlers.lsp_keymaps = function(bufnr)
 	local opts = { buffer = bufnr, desc = "" }
 	keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", vim.tbl_extend("force", opts, { desc = "Hover" }))
-	keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", vim.tbl_extend("force", opts, { desc = "Line Diagnostics" }))
-	keymap("n", "gra", "<cmd>lua vim.lsp.buf.code_action()<cr>", vim.tbl_extend("force", opts, { desc = "Code Actions" }))
-	keymap("n", "gri", "<cmd>lua vim.lsp.buf.implementation()<CR>", vim.tbl_extend("force", opts, { desc = "LSP Implementation" }))
+	keymap(
+		"n",
+		"gl",
+		"<cmd>lua vim.diagnostic.open_float()<cr>",
+		vim.tbl_extend("force", opts, { desc = "Line Diagnostics" })
+	)
+	keymap(
+		"n",
+		"gra",
+		"<cmd>lua vim.lsp.buf.code_action()<cr>",
+		vim.tbl_extend("force", opts, { desc = "Code Actions" })
+	)
+	keymap(
+		"n",
+		"gri",
+		"<cmd>lua vim.lsp.buf.implementation()<CR>",
+		vim.tbl_extend("force", opts, { desc = "LSP Implementation" })
+	)
 	keymap("n", "grn", "<cmd>lua vim.lsp.buf.rename()<cr>", vim.tbl_extend("force", opts, { desc = "LSP Rename" }))
-	keymap("n", "grr", "<cmd>Trouble lsp_references toggle focus=true<cr>", vim.tbl_extend("force", opts, { desc = "LSP References" }))
-	keymap("n", "grt", "<cmd>Trouble lsp_type_definitions toggle focus=true<cr>", vim.tbl_extend("force", opts, { desc = "LSP Type Definitions" }))
-	keymap("n", "grf", "<cmd>lua vim.lsp.buf.format{ async = true }<cr>", vim.tbl_extend("force", opts, { desc = "LSP Format" }))
-	keymap("i", "<C-v>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", vim.tbl_extend("force", opts, { desc = "LSP Signature" }))
+	keymap(
+		"n",
+		"grr",
+		"<cmd>Trouble lsp_references toggle focus=true<cr>",
+		vim.tbl_extend("force", opts, { desc = "LSP References" })
+	)
+	keymap(
+		"n",
+		"grt",
+		"<cmd>Trouble lsp_type_definitions toggle focus=true<cr>",
+		vim.tbl_extend("force", opts, { desc = "LSP Type Definitions" })
+	)
+	keymap(
+		"n",
+		"grf",
+		"<cmd>lua vim.lsp.buf.format{ async = true }<cr>",
+		vim.tbl_extend("force", opts, { desc = "LSP Format" })
+	)
+	keymap(
+		"i",
+		"<C-v>",
+		"<cmd>lua vim.lsp.buf.signature_help()<cr>",
+		vim.tbl_extend("force", opts, { desc = "LSP Signature" })
+	)
 	keymap(
 		"n",
 		"grd",
@@ -56,8 +94,18 @@ Handlers.lsp_keymaps = function(bufnr)
 		"<cmd>Trouble diagnostics toggle focus=true multiline=true<cr>",
 		vim.tbl_extend("force", opts, { desc = "Diagnostics (Trouble)" })
 	)
-	keymap("n", "grs", "<cmd>Trouble lsp_document_symbols toggle focus=true<cr>", vim.tbl_extend("force", opts, { desc = "Symbols (Trouble)" }))
-	keymap("n", "gd", "<cmd>Trouble lsp_definitions toggle focus=true<cr>", vim.tbl_extend("force", opts, { desc = "Goto Defination" }))
+	keymap(
+		"n",
+		"grs",
+		"<cmd>Trouble lsp_document_symbols toggle focus=true<cr>",
+		vim.tbl_extend("force", opts, { desc = "Symbols (Trouble)" })
+	)
+	keymap(
+		"n",
+		"gd",
+		"<cmd>Trouble lsp_definitions toggle focus=true<cr>",
+		vim.tbl_extend("force", opts, { desc = "Goto Defination" })
+	)
 end
 
 Handlers.setup()

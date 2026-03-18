@@ -48,7 +48,7 @@ in
               owner = "nvimtools";
               repo = "none-ls-extras.nvim";
               rev = "03955d1";
-              sha256 = "Mm3BJI4wZ+Bzip2/A4l71MsGnGuITKTNDAMrxV8LleE=";
+              sha256 = "wo8vIK4X4hN7d15IcoeMHgd7OpYz6r0qJV11A+9PycA=";
             };
             doCheck = false;
           };
