@@ -1,5 +1,5 @@
-local ignore_filetypes = { "neo-tree", "TelescopePrompt", "neo-tree-popup" }
-local ignore_buftypes = { "nofile", "prompt", "popup" }
+local ignore_filetypes = { "neo-tree", "TelescopePrompt", "neo-tree-popup", "DiffviewFiles", "neogit", "trouble" }
+local ignore_buftypes = { "nofile", "prompt", "popup", "quickfix", "help" }
 
 local augroup = vim.api.nvim_create_augroup("FocusDisable", { clear = true })
 
@@ -28,13 +28,33 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 require("focus").setup({
+	enable = true,
+	commands = true,
+	autoresize = { enable = true, width = 0, height = 0, minwidth = 0, minheight = 0 },
 	ui = {
-		number = true,
-		relativenumber = true,
-		hybridnumber = true,
+		number = false,
+		relativenumber = false,
+		hybridnumber = false,
 		cursorline = false,
 		cursorcolumn = false,
-		signcolumn = true,
-		winhighlight = true,
+		signcolumn = false,
+		winhighlight = false,
 	},
+})
+
+local wk = require("which-key")
+
+wk.add({
+	-- Window keymaps (Focus)
+	{ "<leader>wh", "<cmd>FocusSplitLeft<cr>", desc = "Split Left" },
+	{ "<leader>wj", "<cmd>FocusSplitDown<cr>", desc = "Split Down" },
+	{ "<leader>wk", "<cmd>FocusSplitUp<cr>", desc = "Split Up" },
+	{ "<leader>wl", "<cmd>FocusSplitRight<cr>", desc = "Split Right" },
+	{ "<leader>wm", "<cmd>FocusMaximise<cr>", desc = "Maximise" },
+	{ "<leader>we", "<cmd>FocusEqualise<cr>", desc = "Equalise" },
+	{ "<leader>wn", "<cmd>FocusSplitNicely<cr>", desc = "Split Nicely" },
+	{ "<leader>wc", "<cmd>FocusSplitCycle<cr>", desc = "Cycle Split" },
+	{ "<leader>wt", "<cmd>FocusToggle<cr>", desc = "Toggle Focus" },
+	{ "<leader>wo", "<cmd>only<cr>", desc = "Only" },
+	{ "<leader>wq", "<cmd>close<cr>", desc = "Close" },
 })

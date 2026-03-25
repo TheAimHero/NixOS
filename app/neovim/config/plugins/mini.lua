@@ -52,7 +52,7 @@ require("mini.starter").setup({
 		{ action = "Telescope oldfiles", name = "R: Recent Files", section = "Telescope" },
 		{ action = "Telescope find_files", name = "F: Find Files", section = "Telescope" },
 		{ action = "Telescope projects", name = "P: Projects", section = "Telescope" },
-		{ action = "G", name = "G: Fugitive", section = "Git" },
+		{ action = "Neogit", name = "G: Neogit", section = "Git" },
 		{ action = "new", name = "N: New Buffer", section = "Builtin actions" },
 		{ action = "qall!", name = "Q: Quit Neovim", section = "Builtin actions" },
 	},
@@ -80,42 +80,6 @@ require("mini.pairs").setup({ modes = { insert = true, command = true, terminal 
 
 require("mini.move").setup()
 
-require("mini.clue").setup({
-	triggers = {
-		{ mode = "n", keys = "<Leader>" },
-		{ mode = "n", keys = "]" },
-		{ mode = "n", keys = "[" },
-		{ mode = "x", keys = "<Leader>" },
-		{ mode = "n", keys = "g" },
-		{ mode = "n", keys = "m" },
-		{ mode = "x", keys = "g" },
-		{ mode = "n", keys = "'" },
-		{ mode = "n", keys = "`" },
-		{ mode = "x", keys = "'" },
-		{ mode = "x", keys = "`" },
-		{ mode = "n", keys = '"' },
-		{ mode = "x", keys = '"' },
-		{ mode = "i", keys = "<C-r>" },
-		{ mode = "c", keys = "<C-r>" },
-		{ mode = "n", keys = "<C-w>" },
-		{ mode = "n", keys = "z" },
-		{ mode = "x", keys = "z" },
-	},
-	window = {
-		config = { border = "single" },
-		delay = 300,
-		scroll_down = "<C-d>",
-		scroll_up = "<C-u>",
-	},
-	clues = {
-		require("mini.clue").gen_clues.builtin_completion(),
-		require("mini.clue").gen_clues.g(),
-		require("mini.clue").gen_clues.marks(),
-		require("mini.clue").gen_clues.registers(),
-		require("mini.clue").gen_clues.windows(),
-		require("mini.clue").gen_clues.z(),
-	},
-})
 
 require("mini.hipatterns").setup({
 	highlighters = {
@@ -138,32 +102,6 @@ require("mini.git").setup({
 	command = { split = "auto" },
 })
 
-require("mini.diff").setup({
-	view = {
-		style = vim.go.number and "number" or "sign",
-		signs = { add = "▒", change = "▒", delete = "▒" },
-		priority = 199,
-	},
-	source = nil,
-	delay = {
-		text_change = 200,
-	},
-	mappings = {
-		apply = "",
-		reset = "",
-		textobject = "",
-		goto_first = "[H",
-		goto_prev = "[h",
-		goto_next = "]h",
-		goto_last = "]H",
-	},
-	options = {
-		algorithm = "histogram",
-		indent_heuristic = true,
-		linematch = 60,
-		wrap_goto = false,
-	},
-})
 
 require("mini.bracketed").setup({
 	jump = { suffix = "", options = {} },

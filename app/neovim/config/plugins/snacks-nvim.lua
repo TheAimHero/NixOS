@@ -5,7 +5,6 @@ local catppuccin = require("catppuccin")
 
 local eyelinerStatus = false
 local colorSchemeStatus = false
-local completionStatus = false
 
 require("snacks").setup({
 	bigfile = { enabled = true },
@@ -120,19 +119,10 @@ local snacksInit = function()
 		.new({
 			name = "Completion",
 			get = function()
-				if completionStatus == true then
-					completionStatus = false
-					return false
-				end
-				completionStatus = true
-				return true
+				return vim.b.completion ~= false
 			end,
 			set = function(value)
-				if value then
-					vim.cmd(":lua require('cmp').setup( { enabled = true })")
-					return
-				end
-				vim.cmd(":lua require('cmp').setup( { enabled = false })")
+				vim.b.completion = value
 			end,
 		})
 		:map("\\l")

@@ -22,11 +22,6 @@ keymap("t", "<C-j>", "<C-\\><C-n><C-j>", opts)
 keymap("t", "<C-k>", "<C-\\><C-n><C-k>", opts)
 keymap("t", "<C-l>", "<C-\\><C-n><C-l>", opts)
 
--- Windows
-keymap("n", "<leader>wo", "<cmd>only<cr>", { desc = "Only" })
-keymap("n", "<leader>wc", "<cmd>close<cr>", { desc = "Close" })
-keymap("n", "<leader>wv", "<cmd>vsplit<cr>", { desc = "Vertical Split" })
-keymap("n", "<leader>wx", "<cmd>split<cr>", { desc = "Horizontal Split" })
 
 -- Buffers
 keymap("n", "<leader>bf", "<cmd>Telescope buffers<cr>", { desc = "Find" })

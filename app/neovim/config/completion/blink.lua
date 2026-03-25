@@ -14,17 +14,22 @@ require("blink.cmp").setup(
 				auto_show = true,
 				auto_show_delay_ms = 250,
 				treesitter_highlighting = true,
-				window = { border = "rounded" },
+				window = { border = "single" },
 			},
 
 			list = {
-				selection = function(ctx)
-					return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-				end,
+				selection = {
+					preselect = function(ctx)
+						return ctx.mode ~= "cmdline"
+					end,
+					auto_insert = function(ctx)
+						return ctx.mode == "cmdline"
+					end,
+				},
 			},
 
 			menu = {
-				border = "rounded",
+				border = "single",
 				cmdline_position = function()
 					if vim.g.ui_cmdline_pos ~= nil then
 						local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
@@ -39,82 +44,45 @@ require("blink.cmp").setup(
 						{ "kind_icon", "label", gap = 1 },
 						{ "kind" },
 					},
-					components = {
-						kind_icon = {
-							text = function(item)
-								local kind = require("lspkind").symbol_map[item.kind] or ""
-								return kind .. " "
-							end,
-							highlight = "CmpItemKind",
-						},
-						label = {
-							text = function(item)
-								return item.label
-							end,
-							highlight = "CmpItemAbbr",
-						},
-						kind = {
-							text = function(item)
-								return item.kind
-							end,
-							highlight = "CmpItemKind",
-						},
-					},
 				},
 			},
 		},
 
-		-- My super-TAB configuration
+		-- Keymaps matching nvim-cmp config
 		keymap = {
-			["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+			["<C-k>"] = { "select_prev", "fallback" },
+			["<C-j>"] = { "select_next", "fallback" },
+			["<C-p>"] = { "scroll_documentation_up", "fallback" },
+			["<C-n>"] = { "scroll_documentation_down", "fallback" },
+			["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
 			["<C-e>"] = { "hide", "fallback" },
 			["<CR>"] = { "accept", "fallback" },
+			["<C-v>"] = { "show_signature", "hide_signature", "fallback" },
 
-			["<Tab>"] = {
-				function(cmp)
-					return cmp.select_next()
-				end,
-				"snippet_forward",
-				"fallback",
-			},
-			["<S-Tab>"] = {
-				function(cmp)
-					return cmp.select_prev()
-				end,
-				"snippet_backward",
-				"fallback",
-			},
-
-			["<Up>"] = { "select_prev", "fallback" },
-			["<Down>"] = { "select_next", "fallback" },
-			["<C-p>"] = { "select_prev", "fallback" },
-			["<C-n>"] = { "select_next", "fallback" },
-			["<C-up>"] = { "scroll_documentation_up", "fallback" },
-			["<C-down>"] = { "scroll_documentation_down", "fallback" },
+			["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+			["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
 		},
 
-		snippets = {
-			expand = function(snippet)
-				require("luasnip").lsp_expand(snippet)
-			end,
-			active = function(filter)
-				if filter and filter.direction then
-					return require("luasnip").jumpable(filter.direction)
-				end
-				return require("luasnip").in_snippet()
-			end,
-			jump = function(direction)
-				require("luasnip").jump(direction)
-			end,
-		},
-
-		-- Experimental signature help support
 		signature = {
 			enabled = true,
-			window = { border = "rounded" },
+			window = { border = "single" },
 		},
+
+		cmdline = {
+			enabled = true,
+			keymap = {
+				["<C-k>"] = { "select_prev", "fallback" },
+				["<C-j>"] = { "select_next", "fallback" },
+				["<C-e>"] = { "hide", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+				["<Tab>"] = { "select_next", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
+			},
+			completion = { menu = { auto_show = true } },
+		},
+
 		sources = {
-			default = { "lsp", "path", "snippets", "luasnip", "buffer" }
-		}
+			default = { "lsp", "path", "snippets", "buffer" },
+		},
 	}
 )

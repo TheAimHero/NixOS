@@ -42,16 +42,6 @@ in
               sha256 = "SBUVCxJufLzWO/9ZOUOnpDBC2ez6DrvixgedMlXqKxI=";
             };
           };
-          none-ls-extras = prev.vimUtils.buildVimPlugin {
-            name = "none-ls-extras";
-            src = pkgs.fetchFromGitHub {
-              owner = "nvimtools";
-              repo = "none-ls-extras.nvim";
-              rev = "03955d1";
-              sha256 = "wo8vIK4X4hN7d15IcoeMHgd7OpYz6r0qJV11A+9PycA=";
-            };
-            doCheck = false;
-          };
         };
       })
     ];
@@ -76,7 +66,14 @@ in
       nvim-web-devicons
       plenary-nvim
       nui-nvim
-      vim-fugitive
+      {
+        plugin = neogit;
+        config = withLuaFile ./config/plugins/neogit.lua;
+      }
+      {
+        plugin = gitsigns-nvim;
+        config = withLuaFile ./config/plugins/gitsigns.lua;
+      }
       {
         plugin = nvim-ts-autotag;
         config = withLua ''require("nvim-ts-autotag").setup({})'';
@@ -85,15 +82,9 @@ in
       substitute-nvim
       telescope-fzf-native-nvim
       friendly-snippets
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-async-path
-      cmp-cmdline
-      cmp_luasnip
       SchemaStore-nvim
       nvim-ts-context-commentstring
       vim-wakatime
-      none-ls-extras
       {
         plugin = octo-nvim;
         config = withLuaFile ./config/plugins/octo.lua;
@@ -143,12 +134,8 @@ in
         config = withLuaFile ./config/plugins/treesitter.lua;
       }
       {
-        plugin = nvim-cmp;
-        config = withLuaFile ./config/completion/cmp.lua;
-      }
-      {
-        plugin = luasnip;
-        config = withLuaFile ./config/completion/luasnip.lua;
+        plugin = blink-cmp;
+        config = withLuaFile ./config/completion/blink.lua;
       }
       {
         plugin = snacks-nvim;
@@ -164,7 +151,7 @@ in
       }
       {
         plugin = diffview-nvim;
-        config = withLua "require('diffview').setup({})";
+        config = withLuaFile ./config/plugins/diffview.lua;
       }
       {
         plugin = lualine-nvim;
@@ -199,8 +186,16 @@ in
         ];
       }
       {
-        plugin = none-ls-nvim;
-        config = withLuaFile ./config/nvim-lspconfig/none-ls.lua;
+        plugin = conform-nvim;
+        config = withLuaFile ./config/plugins/conform.lua;
+      }
+      {
+        plugin = nvim-lint;
+        config = withLuaFile ./config/plugins/nvim-lint.lua;
+      }
+      {
+        plugin = which-key-nvim;
+        config = withLuaFile ./config/plugins/which-key.lua;
       }
     ];
     extraPackages = with pkgs; [

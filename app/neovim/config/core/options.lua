@@ -46,8 +46,7 @@ local options = {
 	ruler = false,
 	infercase = true,
 	virtualedit = "block",
-	fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:,diff:]],
-	spelloptions = "camel",
+	fillchars = { eob = " ", fold = " ", foldopen = "-", foldsep = " ", foldclose = "+", diff = "╱" },
 	foldlevelstart = 99,
 	foldmethod = "indent",
 	foldnestmax = 10,
@@ -55,7 +54,38 @@ local options = {
 	foldlevel = 99,
 	foldenable = true,
 	laststatus = 3,
+
+	-- Spell checking (camel case aware)
+	spell = true,
+	spelllang = { "en_us" },
+	spelloptions = "camel",
+	spellcapcheck = "",
+
+	-- Search improvements
+	gdefault = true,
+	inccommand = "split",
+
+	-- Better undo
+	undolevels = 10000,
+
+	-- Smoothscroll
+	smoothscroll = true,
+
+	-- Session options
+	sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" },
+
+	-- Grep with ripgrep
+	grepformat = "%f:%l:%c:%m",
+	grepprg = "rg --vimgrep",
+
+	-- Misc
+	confirm = true,
+	jumpoptions = "view",
+	shortmess = "filnxtToOFWIcC",
+	showmatch = true,
+	wildmode = "longest:full,full",
 }
+
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
