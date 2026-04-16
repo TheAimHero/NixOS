@@ -27,29 +27,9 @@ let
   clangdCfg = withLuaFile ./config/nvim-lspconfig/setting/clangd.lua;
   htmlCfg = withLuaFile ./config/nvim-lspconfig/setting/html.lua;
   luaLsCfg = withLuaFile ./config/nvim-lspconfig/setting/lua_ls.lua;
+  kotlinCfg = withLuaFile ./config/nvim-lspconfig/setting/kotlin.lua;
 in
 {
-  nixpkgs = {
-    overlays = [
-      (final: prev: {
-        vimPlugins = prev.vimPlugins // {
-          neocodeium = prev.vimUtils.buildVimPlugin {
-            name = "neocodeium";
-            src = pkgs.fetchFromGitHub {
-              owner = "monkoose";
-              repo = "neocodeium";
-              rev = "bfe790d";
-              sha256 = "SBUVCxJufLzWO/9ZOUOnpDBC2ez6DrvixgedMlXqKxI=";
-            };
-          };
-        };
-      })
-    ];
-  };
-
-  home.packages = with pkgs; [
-    codeium
-  ];
 
   programs.neovim = {
     enable = true;
@@ -146,8 +126,8 @@ in
         config = withLua ''require("nvim-surround").setup({})'';
       }
       {
-        plugin = neocodeium;
-        config = withLuaFile ./config/plugins/codeium.lua;
+        plugin = copilot-lua;
+        config = withLuaFile ./config/plugins/copilot.lua;
       }
       {
         plugin = diffview-nvim;
@@ -179,6 +159,7 @@ in
           htmlCfg
           luaLsCfg
           tsserverCfg
+          kotlinCfg
           (defaultLspConfig "marksman")
           (defaultLspConfig "dockerls")
           (defaultLspConfig "docker_compose_language_service")
@@ -221,6 +202,8 @@ in
       tailwindcss-language-server
       actionlint
       sqlfluff
+      kotlin-language-server
+      ktlint
     ];
   };
 }

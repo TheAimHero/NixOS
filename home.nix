@@ -35,11 +35,7 @@
     enable = true;
     flavor = "mocha";
     accent = "blue";
-    cursors = {
-      enable = true;
-      flavor = "mocha";
-      accent = "blue";
-    };
+    cursors = { enable = true; flavor = "mocha"; accent = "blue"; };
   };
   nixpkgs.config.allowUnfree = true;
   # Let Home Manager install and manage itself.

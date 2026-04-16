@@ -150,6 +150,11 @@
       gzip
       wget
       sshfs
+      # Android/Kotlin development
+      jdk17
+      gradle
+      kotlin
+      android-tools
     ];
 
     plasma6.excludePackages = with pkgs.kdePackages; [
@@ -166,10 +171,7 @@
   };
 
   virtualisation = {
-    docker = {
-      enable = true;
-      enableOnBoot = false;
-    };
+    docker = { enable = true; enableOnBoot = false; };
   };
 
   # Open ports in the firewall.

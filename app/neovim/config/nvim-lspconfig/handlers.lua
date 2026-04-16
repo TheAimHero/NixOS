@@ -4,7 +4,6 @@ Handlers.capabilities = vim.lsp.protocol.make_client_capabilities()
 Handlers.capabilities.textDocument.completion.completionItem.snippetSupport = true
 Handlers.capabilities = require("blink.cmp").get_lsp_capabilities(Handlers.capabilities)
 
-
 Handlers.setup = function()
 	-- diagnostic signs
 	local signs = {
@@ -35,7 +34,7 @@ end
 local keymap = vim.keymap.set
 
 Handlers.lsp_keymaps = function(bufnr)
-	local opts = { buffer = bufnr, desc = "" }
+	local opts = { buffer = bufnr, noremap = true, silent = true, desc = "" }
 	keymap("n", "K", function()
 		vim.lsp.buf.hover({ border = "single" })
 	end, vim.tbl_extend("force", opts, { desc = "Hover" }))
@@ -53,11 +52,10 @@ Handlers.lsp_keymaps = function(bufnr)
 	)
 	keymap(
 		"n",
-		"<leader>li",
-		"<cmd>lua vim.lsp.buf.implementation()<CR>",
-		vim.tbl_extend("force", opts, { desc = "LSP Implementation" })
+		"<leader>ln",
+		"<cmd>lua vim.lsp.buf.rename()<cr>",
+		vim.tbl_extend("force", opts, { desc = "LSP Rename" })
 	)
-	keymap("n", "<leader>ln", "<cmd>lua vim.lsp.buf.rename()<cr>", vim.tbl_extend("force", opts, { desc = "LSP Rename" }))
 	keymap(
 		"n",
 		"<leader>lr",
@@ -93,6 +91,12 @@ Handlers.lsp_keymaps = function(bufnr)
 		"gd",
 		"<cmd>Trouble lsp_definitions toggle focus=true<cr>",
 		vim.tbl_extend("force", opts, { desc = "Goto Definition" })
+	)
+	keymap(
+		"n",
+		"gi",
+		"<cmd>Trouble lsp_implementations toggle focus=true<cr>",
+		vim.tbl_extend("force", opts, { desc = "Goto Implementation" })
 	)
 end
 

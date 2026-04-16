@@ -1,6 +1,5 @@
 local keymap = vim.keymap.set
 
-local neocodeium = require("neocodeium")
 local catppuccin = require("catppuccin")
 
 local eyelinerStatus = false
@@ -11,14 +10,50 @@ require("snacks").setup({
 	toggle = { enabled = true },
 	terminal = { enabled = true },
 	rename = { enabled = true },
-	git = { enabled = true },
 	scratch = { enabled = true, ft = "markdown" },
 	bufdelete = { enabled = true },
 	statuscolumn = {
 		enabled = true,
 		folds = { open = true },
 	},
+	notifier = {
+		enabled = true,
+		timeout = 3000,
+		style = "compact",
+	},
+	dashboard = {
+		enabled = true,
+		sections = {
+			{ section = "header" },
+			{ section = "keys", gap = 1, padding = 1 },
+			{ section = "recent_files", limit = 5, padding = 1 },
+		},
+		preset = {
+			keys = {
+				{ icon = " ", key = "f", desc = "Find File", action = ":Telescope find_files" },
+				{ icon = " ", key = "r", desc = "Recent Files", action = ":Telescope oldfiles" },
+				{ icon = " ", key = "p", desc = "Projects", action = ":Telescope projects" },
+				{ icon = " ", key = "g", desc = "Neogit", action = ":Neogit" },
+				{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+				{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+			},
+			header = [[
+  /\ \▔\___  ___/\   /(●)_ __ ___
+ /  \/ / _ \/ _ \ \ / / | '_ ` _ \
+/ /\  /  __/ (_) \ V /| | | | | | |
+\_\ \/ \___|\___/ \_/ |_|_| |_| |_|
+───────────────────────────────────]],
+		},
+	},
+	indent = {
+		enabled = true,
+		char = "│",
+		scope = { enabled = true },
+	},
 })
+
+-- Override vim.notify
+vim.notify = Snacks.notifier.notify
 
 keymap("n", "<leader>ur", "<cmd>lua Snacks.rename.rename_file()<cr>", { desc = "Rename File" })
 keymap("n", "<leader>uz", "<cmd>lua Snacks.zen()<cr>", { desc = "Zen Mode" })
@@ -26,6 +61,7 @@ keymap("n", "<leader>c", "<cmd>lua Snacks.bufdelete()<cr>", { desc = "Delete Buf
 keymap("n", "<leader>t", "<cmd>lua Snacks.terminal.open()<cr>", { desc = "Terminal" })
 keymap("n", "<leader>.", "<cmd>lua Snacks.scratch()<cr>", { desc = "Scratch Buffer" })
 keymap("n", "<leader>S", "<cmd>lua Snacks.scratch.select()<cr>", { desc = "Select Scratch Buffer" })
+keymap("n", "<leader>un", "<cmd>lua Snacks.notifier.show_history()<cr>", { desc = "Notification History" })
 
 local snacksInit = function()
 	Snacks.toggle.option("spell", { name = "Spelling" }):map("\\s")
@@ -34,23 +70,23 @@ local snacksInit = function()
 	Snacks.toggle.diagnostics():map("\\d")
 	Snacks.toggle.inlay_hints():map("\\h")
 
-	-- Toggle NeoCodeium
+	-- Toggle Copilot
 	Snacks.toggle
 		.new({
-			name = "NeoCodeium",
+			name = "Copilot",
 			get = function()
-				local status, _ = neocodeium.get_status()
-				if status == 1 then
+				local ok, copilot = pcall(require, "copilot.client")
+				if not ok then
 					return false
 				end
-				return true
+				return copilot.is_attached()
 			end,
 			set = function(value)
 				if value then
-					vim.cmd("NeoCodeium enable")
+					vim.cmd("Copilot enable")
 					return
 				end
-				vim.cmd("NeoCodeium disable")
+				vim.cmd("Copilot disable")
 			end,
 		})
 		:map("\\a")

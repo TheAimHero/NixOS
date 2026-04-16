@@ -83,6 +83,17 @@ require("blink.cmp").setup(
 
 		sources = {
 			default = { "lsp", "path", "snippets", "buffer" },
+			providers = {
+				snippets = {
+					opts = {
+						friendly_snippets = true,
+						extended_filetypes = {
+							typescript = { "javascript" },
+							typescriptreact = { "javascript" },
+						},
+					},
+				},
+			},
 		},
 	}
 )
