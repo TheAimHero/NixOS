@@ -30,8 +30,8 @@ in
           src = pkgs.fetchFromGitHub {
             owner = "Aloxaf";
             repo = "fzf-tab";
-            rev = "14e16f0";
-            sha256 = "o8hgnTl84nI7jMVfA5jEcDXkMFFlnxKbRva+l/Fx4jI=";
+            rev = "0983009";
+            sha256 = "yvPQyuK4Dw+LkwxrkWTRcw4PIf/79fW61jWbEg8Pe9Y=";
           };
         }
       ];
@@ -49,9 +49,7 @@ in
           "tmux"
           "git"
           "vi-mode"
-          "fzf"
           "kind"
-          "aws"
           "docker"
           "gh"
           "golang"

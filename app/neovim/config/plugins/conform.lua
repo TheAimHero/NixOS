@@ -13,23 +13,11 @@ require("conform").setup({
 		lua = { "stylua" },
 		nix = { "nixpkgs_fmt" },
 		go = { "gofmt" },
-		kotlin = { "ktlint" },
+		zig = { "lsp" },
 	},
 	format_on_save = function(bufnr)
-		local timeout = 500
-		-- ktlint is slow, especially on first run (JVM startup)
-		if vim.bo[bufnr].filetype == "kotlin" then
-			timeout = 10000
-		end
-		return { timeout_ms = timeout, lsp_format = "fallback" }
+		return { timeout_ms = 500, lsp_format = "fallback" }
 	end,
-	formatters = {
-		ktlint = {
-			timeout_ms = 10000,
-			args = { "--format", "--stdin", "-" },
-			stdin = true,
-		},
-	},
 })
 
 vim.keymap.set("n", "<leader>lf", function()

@@ -12,13 +12,15 @@
     ./app/others.nix
   ];
 
-  home = {
-    username = "vedant";
-    homeDirectory = "/home/vedant";
-    packages = with pkgs; [
+    home = {
+      username = "vedant";
+      homeDirectory = "/home/vedant";
+      packages = with pkgs; [
       pnpm
       neofetch
       kitty
+      zig
+      google-chrome
     ];
     file = { };
     sessionVariables = {
@@ -27,7 +29,7 @@
       VISUAL = "nvim";
       SUDOEDIT = "nvim";
       PAGER = "bat";
-      BROWSER = "google-chrome-stable";
+      BROWSER = "google-chrome";
     };
     stateVersion = "24.05"; # Do not change this value.
   };

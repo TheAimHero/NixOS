@@ -141,20 +141,14 @@
       neovim
       git
       lf
-      gcc
       xsel
-      nodejs_22
+      nodejs_24
       gnumake
       python314
       unzip
       gzip
       wget
       sshfs
-      # Android/Kotlin development
-      jdk17
-      gradle
-      kotlin
-      android-tools
     ];
 
     plasma6.excludePackages = with pkgs.kdePackages; [

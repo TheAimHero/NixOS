@@ -22,7 +22,6 @@ keymap("t", "<C-j>", "<C-\\><C-n><C-j>", opts)
 keymap("t", "<C-k>", "<C-\\><C-n><C-k>", opts)
 keymap("t", "<C-l>", "<C-\\><C-n><C-l>", opts)
 
-
 -- Buffers
 keymap("n", "<leader>bf", "<cmd>Telescope buffers<cr>", { desc = "Find" })
 keymap("n", "<leader>bc", "<cmd>silent! %bd<cr>", { desc = "Close Buffer" })
