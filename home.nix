@@ -12,14 +12,13 @@
     ./app/others.nix
   ];
 
-    home = {
-      username = "vedant";
-      homeDirectory = "/home/vedant";
-      packages = with pkgs; [
+  home = {
+    username = "vedant";
+    homeDirectory = "/home/vedant";
+    packages = with pkgs; [
       pnpm
       neofetch
       kitty
-      zig
       google-chrome
     ];
     file = { };

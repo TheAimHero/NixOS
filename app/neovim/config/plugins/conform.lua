@@ -13,7 +13,6 @@ require("conform").setup({
 		lua = { "stylua" },
 		nix = { "nixpkgs_fmt" },
 		go = { "gofmt" },
-		zig = { "lsp" },
 	},
 	format_on_save = function(bufnr)
 		return { timeout_ms = 500, lsp_format = "fallback" }

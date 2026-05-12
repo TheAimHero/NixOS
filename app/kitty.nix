@@ -45,7 +45,7 @@
       "ctrl+0" = "change_font_size all 0";
 
       # Splits (like tmux: C-a v = split-h, C-a x = split-v)
-      "ctrl+shift+v" = "launch --location=vsplit --cwd=current";
+      "ctrl+shift+enter" = "launch --location=vsplit --cwd=current";
       "ctrl+shift+x" = "launch --location=hsplit --cwd=current";
 
       # Zoom / fullscreen toggle (like tmux: C-a C-f)

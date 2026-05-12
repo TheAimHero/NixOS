@@ -1,7 +1,7 @@
 require("project").setup({
 	manual_mode = false,
 	use_lsp = true,
-	patterns = { "package.json", ".git", "go.mod", "Session.vim" },
+	patterns = { ".git", "Session.vim" },
 	ignore_lsp = {},
 	exclude_dirs = { "/home/vedant" },
 	show_hidden = true,
