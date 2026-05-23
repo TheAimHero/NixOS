@@ -27,7 +27,6 @@ let
   clangdCfg = withLuaFile ./config/nvim-lspconfig/setting/clangd.lua;
   htmlCfg = withLuaFile ./config/nvim-lspconfig/setting/html.lua;
   luaLsCfg = withLuaFile ./config/nvim-lspconfig/setting/lua_ls.lua;
-  zlsCfg = withLuaFile ./config/nvim-lspconfig/setting/zls.lua;
 in
 {
 
@@ -159,7 +158,6 @@ in
           htmlCfg
           luaLsCfg
           tsserverCfg
-          zlsCfg
           (defaultLspConfig "marksman")
           (defaultLspConfig "dockerls")
           (defaultLspConfig "docker_compose_language_service")

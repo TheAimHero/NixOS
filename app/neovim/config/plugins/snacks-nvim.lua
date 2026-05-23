@@ -10,7 +10,15 @@ require("snacks").setup({
 	toggle = { enabled = true },
 	terminal = { enabled = true },
 	rename = { enabled = true },
-	scratch = { enabled = true, ft = "markdown" },
+	scratch = {
+		enabled = true,
+		ft = "markdown",
+		win = {
+			position = "right",
+			width = 0.4,
+			bo = { buflisted = true },
+		},
+	},
 	bufdelete = { enabled = true },
 	statuscolumn = {
 		enabled = true,

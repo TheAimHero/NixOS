@@ -54,21 +54,42 @@ autocmd("BufWinLeave", {
 	group = save_fold,
 })
 
--- Make alpha popup when no buffers remain
--- @note: Find a way to make this work without BDeletePost
-augroup("alpha_on_empty", { clear = true })
-autocmd("User", {
-	pattern = "BDeletePost*",
-	group = "alpha_on_empty",
+-- Show snacks dashboard when all file buffers are closed
+augroup("snacks_dashboard_on_empty", { clear = true })
+autocmd({ "BufDelete", "BufWipeout" }, {
+	group = "snacks_dashboard_on_empty",
 	callback = function(event)
-		local fallback_name = vim.api.nvim_buf_get_name(event.buf)
-		local fallback_ft = vim.bo.filetype
-
-		local fallback_on_empty = fallback_name == "" and fallback_ft == ""
-		if fallback_on_empty then
-			vim.cmd("lua MiniStarter.open()")
-			vim.cmd(event.buf .. "bwipeout")
+		-- Don't re-open when the dashboard buffer itself is deleted
+		if vim.bo[event.buf].filetype == "snacks_dashboard" then
+			return
 		end
+		-- Defer to let the buffer deletion complete first
+		vim.schedule(function()
+			-- Check if any real file-backed buffers remain
+			local has_real_buffer = false
+			for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+				if vim.api.nvim_buf_is_loaded(buf) then
+					local name = vim.api.nvim_buf_get_name(buf)
+					local ft = vim.bo[buf].filetype
+					-- A "real" buffer has a name or a meaningful filetype
+					if name ~= "" or (ft ~= "" and ft ~= "snacks_dashboard") then
+						has_real_buffer = true
+						break
+					end
+				end
+			end
+			if not has_real_buffer then
+				-- Close all other windows first so dashboard takes full screen
+				local current_win = vim.api.nvim_get_current_win()
+				for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+					if win ~= current_win and vim.api.nvim_win_is_valid(win) then
+						vim.api.nvim_win_close(win, true)
+					end
+				end
+				-- Use current buffer/window so it's non-float, full-screen
+				Snacks.dashboard({ buf = 0, win = 0 })
+			end
+		end)
 	end,
 })
 
