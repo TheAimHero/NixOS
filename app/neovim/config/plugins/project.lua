@@ -1,13 +1,12 @@
 require("project").setup({
 	manual_mode = false,
-	use_lsp = true,
 	patterns = { ".git", "Session.vim" },
-	ignore_lsp = {},
+	lsp = { ignore = {} },
 	exclude_dirs = { "/home/vedant" },
 	show_hidden = true,
 	silent_chdir = true,
 	scope_chdir = "global",
-	datapath = vim.fn.stdpath("data"),
+	history = { save_dir = vim.fn.stdpath("data") },
 })
 local extension = require("telescope").load_extension
 extension("projects")

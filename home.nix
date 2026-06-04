@@ -17,7 +17,6 @@
     homeDirectory = "/home/vedant";
     packages = with pkgs; [
       pnpm
-      neofetch
       kitty
       google-chrome
     ];

@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
-  withLua = conf: "lua << EOF\n${conf}\nEOF\n";
-  withLuaFile = file: "lua << EOF\n${builtins.readFile file}\nEOF\n";
+  withLua = conf: conf;
+  withLuaFile = file: builtins.readFile file;
   handlers = withLuaFile ./config/nvim-lspconfig/handlers.lua;
 
   # lsp config stuff
@@ -35,7 +35,9 @@ in
     viAlias = true;
     vimAlias = true;
     vimdiffAlias = true;
-    extraLuaConfig = ''
+    withRuby = false;
+    withPython3 = false;
+    initLua = ''
       ${builtins.readFile ./config/core/options.lua}
       ${builtins.readFile ./config/core/keymaps.lua}
       ${builtins.readFile ./config/core/disable.lua}
@@ -47,14 +49,17 @@ in
       nui-nvim
       {
         plugin = neogit;
+        type = "lua";
         config = withLuaFile ./config/plugins/neogit.lua;
       }
       {
         plugin = gitsigns-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/gitsigns.lua;
       }
       {
         plugin = nvim-ts-autotag;
+        type = "lua";
         config = withLua ''require("nvim-ts-autotag").setup({})'';
       }
       telescope-undo-nvim
@@ -66,86 +71,107 @@ in
       vim-wakatime
       {
         plugin = octo-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/octo.lua;
       }
       {
         plugin = focus-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/focus.lua;
       }
       {
         plugin = catppuccin-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/catppuccin.lua;
       }
       {
         plugin = mini-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/mini.lua;
       }
       {
         plugin = telescope-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/telescope.lua;
       }
       {
         plugin = project-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/project.lua;
       }
       {
         plugin = eyeliner-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/eyeliner.lua;
       }
       {
         plugin = tmux-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/tmux.lua;
       }
       {
         plugin = yanky-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/substitute-yanky.lua;
       }
       {
         plugin = harpoon;
+        type = "lua";
         config = withLuaFile ./config/plugins/harpoon.lua;
       }
       {
         plugin = trouble-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/trouble.lua;
       }
       {
         plugin = nvim-treesitter.withAllGrammars;
+        type = "lua";
         config = withLuaFile ./config/plugins/treesitter.lua;
       }
       {
         plugin = blink-cmp;
+        type = "lua";
         config = withLuaFile ./config/completion/blink.lua;
       }
       {
         plugin = snacks-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/snacks-nvim.lua;
       }
       {
         plugin = nvim-surround;
+        type = "lua";
         config = withLua ''require("nvim-surround").setup({})'';
       }
       {
         plugin = copilot-lua;
+        type = "lua";
         config = withLuaFile ./config/plugins/copilot.lua;
       }
       {
         plugin = diffview-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/diffview.lua;
       }
       {
         plugin = lualine-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/lualine.lua;
       }
       {
         plugin = bufferline-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/bufferline.lua;
       }
       {
         plugin = neo-tree-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/neo-tree.lua;
       }
       {
         plugin = nvim-lspconfig;
+        type = "lua";
         config = builtins.concatStringsSep "\n" [
           handlers
           goplsCfg
@@ -166,27 +192,30 @@ in
       }
       {
         plugin = conform-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/conform.lua;
       }
       {
         plugin = nvim-lint;
+        type = "lua";
         config = withLuaFile ./config/plugins/nvim-lint.lua;
       }
       {
         plugin = which-key-nvim;
+        type = "lua";
         config = withLuaFile ./config/plugins/which-key.lua;
       }
     ];
     extraPackages = with pkgs; [
       lua-language-server
-      nodePackages.typescript-language-server
+      typescript-language-server
       nil
       marksman
       basedpyright
       prettierd
       gopls
       vscode-langservers-extracted
-      nodePackages.vscode-json-languageserver
+      vscode-json-languageserver
       yaml-language-server
       nixpkgs-fmt
       golangci-lint-langserver

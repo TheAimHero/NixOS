@@ -1,4 +1,4 @@
-return require("tmux").setup({
+require("tmux").setup({
 	copy_sync = { enable = false },
 	navigation = {
 		cycle_navigation = true,
