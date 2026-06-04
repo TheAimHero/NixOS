@@ -51,6 +51,9 @@
       # Zoom / fullscreen toggle (like tmux: C-a C-f)
       "ctrl+shift+f" = "toggle_layout stack";
 
+      # Search (replaces default ctrl+shift+f which is mapped to toggle_layout)
+      "ctrl+shift+/" = "show_scrollback";
+
       # Navigate panes (like tmux C-h/j/k/l with nvim-tmux integration)
       "ctrl+shift+h" = "neighboring_window left";
       "ctrl+shift+j" = "neighboring_window down";

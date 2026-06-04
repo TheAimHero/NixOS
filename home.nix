@@ -28,7 +28,7 @@
       VISUAL = "nvim";
       SUDOEDIT = "nvim";
       PAGER = "bat";
-      BROWSER = "google-chrome";
+      BROWSER = "google-chrome-stable";
     };
     stateVersion = "24.05"; # Do not change this value.
   };
